@@ -8,7 +8,7 @@ boolean p1_kbActive = false;
 
 PImage sprite1_p1, sprite2_p1, sprite3_p1;
 PImage sprite1_p2, sprite2_p2, sprite3_p2;
-
+PImage img;
 
 float p2_speedX = 0, p2_speedY = 0, p2_posX, p2_posY;
 boolean p2_attacking = false;
@@ -37,7 +37,14 @@ float ARM_MAX_SIZE = 200;
 float ARM_START_SIZE = 150;
 float KNOCKBACK = 0.5;
 
+import processing.sound.*;
+SoundFile dano;
+
 void setup() {
+  
+  size(800, 600);
+  img = loadImage("BG_image.png");
+  img.resize(width, height);
   size(800, 500);
   GROUND_Y = height - PLAYER_HEIGHT - 10;
   
@@ -53,13 +60,16 @@ void setup() {
   sprite1_p2 = loadImage("sprite1_player2.png");
   sprite2_p2 = loadImage("sprite2_player2.png");
   sprite3_p2 = loadImage("sprite3_player2.png");
+  
+  dano = new SoundFile(this, "King_games.mp3");
+  dano.loop(); 
 }
 
 void draw() {
   background(255);
   
   drawGround();
-  
+  background(img);
   updatePlayer1();
   updatePlayer2();
   checkCollision();
@@ -69,6 +79,7 @@ void draw() {
   drawPlayer2();
   drawArms();
   drawHealthBar();
+
 }
 
 void drawGround() {
